@@ -1,6 +1,20 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <p v-text="anotherMsg">{{msg}}</p>
+    <p v-if="condition">Condition kinda true</p>
+    <p v-else-if="condition || anotherCondition">Another condition kinda true</p>
+    <p v-else>All conditions eq to false</p>
+    <p v-show="condition">Check out "v-show"</p>
+    <p v-bind:style="someStyles">Not black text</p>
+    <p v-bind:style="someStyles" v-once>Another not black text</p>
+    <p v-color="textColor">Some colored text</p>
+    <div><button v-on:click="someStyles = 'color: blue;'">Change color</button></div>
+    <div><a href="https://google.com/" v-on:click.prevent="someStyles = 'color: green;'">Leave to Google</a></div>
+    <ul>
+      <li v-for="(item, index) in someList">{{ index + 1 }} - {{ item }}</li>
+    </ul>
+    <p>Some added DOM</p>
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -25,8 +39,24 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: '<i>Hello world</i>',
+      anotherMsg: '<i>Another hello world</i>',
+      condition: false,
+      anotherCondition: false,
+      someList: [
+        'one',
+        'two',
+        'three',
+      ],
+      someStyles: 'color: red;',
+      textColor: 'purple',
     };
+  },
+  directives: {
+    color(el, binding) {
+      // eslint-disable-next-line
+      el.style.color = binding.value;
+    },
   },
 };
 </script>
